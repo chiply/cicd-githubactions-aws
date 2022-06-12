@@ -4,11 +4,15 @@ jobs:
   job0:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      #- run: |
+          #dpkg -l | grep -qw docker || curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh
+
       - run: |
-          curl -fsSL https://get.docker.com -o get-docker.sh
-          sudo sh get-docker.sh
-      - run: |
-          docker run hello-world
+          #docker build -t app-image .
+          docker compose up
 
 
         
@@ -25,8 +29,6 @@ jobs:
           #unzip awscliv2.zip
           #sudo ./aws/install --update
 #
-      #- name: Checkout repo
-        #uses: actions/checkout@v3
 #
       #- name: Configure AWS Credentials
         #uses: aws-actions/configure-aws-credentials@v1
