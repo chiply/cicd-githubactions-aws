@@ -7,8 +7,7 @@ jobs:
       - uses: actions/checkout@v3
       - run: ls -lah
       - run: echo ${{ secrets.TEST_SECRET0 }}
-      - run: aws s3 ls
-      - name: auth with aws
+      - name: foobar
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
