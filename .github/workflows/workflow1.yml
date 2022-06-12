@@ -4,11 +4,11 @@ jobs:
   job0:
     runs-on: ubuntu-latest
     steps:
-      #- name: Setup Python
-        #uses: actions/setup-python@v4.0.0
-        #with:
-          #python-version: 3.8
-      #- run: pip install boto3
+      - name: Setup Python
+        uses: actions/setup-python@v4.0.0
+        with:
+          python-version: 3.8
+      - run: pip install boto3
       - run: ls -lah
       - name: install aws cli
         run: |
