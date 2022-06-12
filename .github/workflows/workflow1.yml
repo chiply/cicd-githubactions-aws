@@ -4,6 +4,6 @@ jobs:
   job0:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Hello from github actions"
-      - run: echo "${pwd}"
+      - run: ls -lah
+      - run: pwd
 
