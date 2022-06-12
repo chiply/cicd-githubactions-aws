@@ -4,6 +4,17 @@ jobs:
   job0:
     runs-on: ubuntu-latest
     steps:
+      #- name: Setup Python
+        #uses: actions/setup-python@v4.0.0
+        #with:
+          #python-version: 3.8
+      #- run: pip install boto3
+      - run: ls -lah
+      - name: install aws cli
+        run: |
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install
       - uses: actions/checkout@v3
       - run: ls -lah
       - run: echo ${{ secrets.TEST_SECRET0 }}
