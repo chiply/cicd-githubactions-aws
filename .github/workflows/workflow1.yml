@@ -3,17 +3,36 @@ on: [push]
 jobs:
   job0:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
 
+    steps:
       #- run: |
           #dpkg -l | grep -qw docker || curl -fsSL https://get.docker.com -o get-docker.sh && sudo sh get-docker.sh
 
-      - run: |
-          #docker build -t app-image .
-          docker compose up
 
+
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      ## needed for the ecs integration
+      #- name: Install docker compose
+        #run: |
+          #curl -L https://raw.githubusercontent.com/docker/compose-cli/main/scripts/install/install_linux.sh | sh
+
+      ## auth with AWS
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          #aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          #aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          # could store this n a secret
+          role-to-assume: arn:aws:iam::830273385476:role/github_actions_role
+          aws-region: us-east-1
+
+      # don't need to install docker, it is available on the runner
+      - name: Start the App
+        run: |
+          docker context create ecs myecscontext
+          #docker compose up
 
         
       #- name: Setup Python
@@ -23,19 +42,14 @@ jobs:
 #
       #- run: pip install boto3
        # 
-      #- name: install aws cli
+      #- name: Install Aws Cli
         #run: |
-          #curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          #curl \
+          #"https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" \
+          #-o "awscliv2.zip"
           #unzip awscliv2.zip
           #sudo ./aws/install --update
 #
-#
-      #- name: Configure AWS Credentials
-        #uses: aws-actions/configure-aws-credentials@v1
-        #with:
-          #aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          #aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          #aws-region: us-east-1
 #
       #- run: aws s3 ls
 
