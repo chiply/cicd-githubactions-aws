@@ -1,12 +1,14 @@
 name: Workflow0
 on: [push]
+
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   job0:
     runs-on: ubuntu-latest
 
-    permissions:
-      id-token: write
-      contents: read
 
     steps:
       #- run: |
